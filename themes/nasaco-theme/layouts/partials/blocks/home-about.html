@@ -21,6 +21,9 @@
             <div class="lg:sticky lg:top-[120px] lg:self-start">
                 <h2 class="section-heading">{{ .heading | markdownify }}</h2>
                 <p class="mt-6 font-serif text-[1.5rem] leading-[1.4] text-ink lg:text-[1.75rem] max-w-[24ch]">{{ .text | markdownify }}</p>
+                {{- with .button }}
+                <a class="secondary-btn mt-8" href="{{ $.button_url | relURL }}">{{ . | markdownify }}</a>
+                {{- end }}
             </div>
             <div class="divide-y divide-rule border-y border-rule">
                 {{- range $i, $card := slice .first_card .second_card .third_card }}
@@ -30,6 +33,9 @@
                     <div>
                         <h3 class="card-heading">{{ .heading | markdownify }}</h3>
                         <p class="body-text mt-3 max-w-measure">{{ .text | markdownify | emojify }}</p>
+                        {{- with .link }}
+                        <p class="mt-4"><a class="text-link" href="{{ . | relURL }}">{{ $card.link_text | default "Read more" }}</a></p>
+                        {{- end }}
                     </div>
                 </div>
                 {{- end }}

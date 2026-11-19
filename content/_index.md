@@ -15,6 +15,8 @@ page_sections:
 - template: home-about
   heading: About us
   text: Nasaco International Ltd. produces and markets chemicals for froth flotation of minerals.
+  button: More about Nasaco
+  button_url: '/about-us/'
   first_card:
     heading: Custom Formulations
     text: "We develop, together with mining companies, chemical formulations that are specific to individual operations. We concentrate on providing solutions to metallurgical problems by developing formulations of frothers, mineral collectors and depressants."
@@ -23,6 +25,8 @@ page_sections:
   second_card:
     heading: Logistics Partner
     text: "Nasaco operates a fleet of forty ISO tank containers. We also deliver our products in flexi-tanks or, for non-bulk users, in 1000 l IBC containers or in standard drums of 200 l. Powder products are supplied in either 25 kg sacks, big bags or in exceptional cases in bulk."
+    link: '/logistic/'
+    link_text: How we deliver
     # image: '/images/Logistics Partner.svg'
     # image_description: ''
   third_card:

@@ -34,3 +34,8 @@ HUGO_ENABLEGITINFO = "true"
   for = "/*"
     [headers.values]
     Access-Control-Allow-Origin = "*"
+# Removed article; the address was also used by the old WordPress site.
+[[redirects]]
+  from = "/solutions-for-flotation/*"
+  to = "/articles/"
+  status = 301
