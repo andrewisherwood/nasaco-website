@@ -1,38 +1,30 @@
-<header class="bg-[#111111] pt-[19px] pb-[17px] md:pt-0 md:pb-0 top-0 left-0 right-0 ">
+<header class="site-header">
     <div class="container">
-        <div class="flex justify-between md:justify-start items-center gap-[78px] relative">
-            <div>
-                <div class="block w-[108px] h-[43px]">
-                    <a href="/" aria-label="{{.Site.Params.logo_text}}">
-                        <span class="visually-hidden">{{.Site.Params.logo_text}}</span>
-                        <svg class="h-full w-full object-contain" width="181" height="72" viewBox="0 0 181 72" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <rect width="181" height="72" fill="url(#pattern0)"/>
-                            <defs>
-                            <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-                            <use xlink:href="#image0_1_529" transform="translate(0 -0.00277778) scale(0.005 0.0125694)"/>
-                            </pattern>
-                            <image id="image0_1_529" width="200" height="80" xlink:href="data:image/png;base64,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"/>
-                            </defs>
-                        </svg>                            
-                    </a>
-                </div>
-            </div>
-            <div class="md:hidden hover:cursor-pointer nav-js">
-                <div class="nav-bar nav-bar-top"></div>
-                <div class="nav-bar nav-bar-center"></div>
-                <div class="nav-bar nav-bar-bottom"></div>
-            </div>
+        <div class="flex justify-between items-center gap-10 h-[72px] md:h-auto">
+            <a class="block shrink-0 w-[118px]" href="/" aria-label="{{ .Site.Params.logo_text }} – home">
+                <img class="w-full h-auto" src="{{ .Site.Params.logo }}" width="724" height="288" alt="">
+            </a>
 
-            <nav class="hidden md:flex items-center gap-[10px] lg:gap-[21px] mobile-nav">
+            <button class="nav-toggle nav-js" type="button" aria-expanded="false" aria-controls="site-nav">
+                <span>Menu</span>
+                <span class="flex flex-col gap-[5px]" aria-hidden="true">
+                    <span class="nav-bar nav-bar-top"></span>
+                    <span class="nav-bar nav-bar-center"></span>
+                    <span class="nav-bar nav-bar-bottom"></span>
+                </span>
+            </button>
+
+            <nav id="site-nav" class="mobile-nav md:flex md:items-center md:gap-7 lg:gap-9" aria-label="Main">
                 {{- $current := . -}}
                 {{- range .Site.Menus.main -}}
                 {{- $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .) -}}
-                {{ $active = or $active (eq .Page $current) }}
-                {{ $active = or $active (eq .Name $current.Title) }}
-                {{ $active = or $active (and (eq .Name "Home") ( $current.IsHome)) }}
-                {{ $active = or $active (and (eq .Name "Articles") (eq $current.Section "articles")) }}
-                {{ $active = or $active (and (eq .Name "Tags") (eq $current.Section "tags")) }}
-                    <a id={{.Identifier}} class="{{- if $active -}} nav-item-active {{- end }} nav-item" href="{{.URL}}">{{.Name}}</a>
+                {{- $active = or $active (eq .Page $current) -}}
+                {{- $active = or $active (eq .Name $current.Title) -}}
+                {{- $active = or $active (and (eq .Name "Home") $current.IsHome) -}}
+                {{- $active = or $active (and (eq .Identifier "Articles") (eq $current.Section "articles")) -}}
+                {{- $active = or $active (and (eq .Identifier "Products & Services") (eq $current.Section "products")) -}}
+                {{- if hasPrefix .URL "/#" }}{{ $active = false }}{{ end -}}
+                <a id="nav-{{ .Identifier | urlize }}" class="nav-item{{ if $active }} nav-item-active{{ end }}" href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
                 {{- end -}}
             </nav>
         </div>

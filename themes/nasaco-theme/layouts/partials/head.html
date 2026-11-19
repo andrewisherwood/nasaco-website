@@ -36,11 +36,14 @@
     <link rel="preconnect" href="//www.google-analytics.com">
 
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07263D">
+    <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+    <link rel="preload" href="/fonts/IBMPlexSans-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/SourceSerif4-Variable.woff2" as="font" type="font/woff2" crossorigin>
     <!-- resources.Get "style.css" will fetch the style.css file. 
     It will not work if you mention the exact location like "./assets/style.css".-->
     {{ $style := resources.Get "css/style.css" }}    
     <link rel="stylesheet" href="{{ $style.Permalink }}">
-    <title>{{.Title | default site.Title}}</title>    
+    <title>{{ if .IsHome }}{{ site.Title }} – Solutions for flotation{{ else }}{{ .Title }} – {{ site.Title }}{{ end }}</title>    
 
 </head>

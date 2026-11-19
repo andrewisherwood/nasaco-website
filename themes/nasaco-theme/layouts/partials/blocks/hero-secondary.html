@@ -1,13 +1,13 @@
-<section class="h-[300px] w-full p-0">
-    {{$image_description:= .image_description}}
-    {{with .image}}
-        {{- $img:= resources.Get  (printf "%s" .) -}}
-        {{- $img_desktop:= $img.Resize "webp 1920x" -}}
-        {{- $img_mobile:= $img.Resize "webp 720x" -}}
-            <picture>
-                <source media="(max-width: 979px)" srcset="{{$img_mobile.Permalink}}">
-                <source media="(min-width: 980px)" srcset="{{$img_desktop.Permalink}}">
-                <img class="h-full w-full object-cover" width="{{$img_desktop.Width}}" height="{{$img_desktop.Height}}" src="{{$img_mobile.Permalink}}" alt="{{$image_description}}">
-            </picture>
-    {{end}}
+{{- /* Wide photo strip at the top of a list page. */ -}}
+{{- with .image }}
+{{- $img := resources.Get . -}}
+{{- $img_desktop := $img.Fill "webp 1920x320 Center" -}}
+{{- $img_mobile := $img.Fill "webp 828x280 Center" -}}
+<section class="h-[180px] lg:h-[260px] w-full bg-navy">
+    <picture>
+        <source media="(max-width: 767px)" srcset="{{ $img_mobile.Permalink }}">
+        <source media="(min-width: 768px)" srcset="{{ $img_desktop.Permalink }}">
+        <img class="h-full w-full object-cover" width="{{ $img_desktop.Width }}" height="{{ $img_desktop.Height }}" src="{{ $img_desktop.Permalink }}" alt="{{ $.image_description }}">
+    </picture>
 </section>
+{{- end }}

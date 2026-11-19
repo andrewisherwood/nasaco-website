@@ -1,45 +1,89 @@
-//Header Nav Functionality
-const navOpen = document.querySelector('.nav-js');
-const navItem = document.querySelector('.mobile-nav');
-const bodyFixed = document.querySelector('.body-js');
-const barTop = document.querySelector('.nav-bar-top');
-const barCenter = document.querySelector('.nav-bar-center');
-const barBottom = document.querySelector('.nav-bar-bottom');
+// Mobile navigation
+(function () {
+    const toggle = document.querySelector('.nav-js');
+    const nav = document.querySelector('.mobile-nav');
+    const body = document.querySelector('.body-js');
+    if (!toggle || !nav) return;
 
-navOpen.addEventListener('click', (e) => {
-    navItem.classList.toggle('mobile-nav-active');
-    bodyFixed.classList.toggle('body-active');
-    navOpen.classList.toggle('nav-js-active');
-    barTop.classList.toggle('nav-bar-top-active');
-    barCenter.classList.toggle('nav-bar-center-active');
-    barBottom.classList.toggle('nav-bar-bottom-active');
-})
+    const setOpen = (open) => {
+        nav.classList.toggle('mobile-nav-active', open);
+        body.classList.toggle('body-active', open);
+        toggle.classList.toggle('nav-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.querySelector('span').textContent = open ? 'Close' : 'Menu';
+    };
 
-//Popup Functionality
-const popupButton = document.querySelector('#pdf-button-js');
-const popupForm = document.querySelector('.popup-js');
-const popupMain = document.querySelector('.popup-main');
-const popupCloses = document.querySelectorAll('.popup-close');
+    toggle.addEventListener('click', () => setOpen(!nav.classList.contains('mobile-nav-active')));
 
-document.addEventListener('click', e => {
-    let isClickInside = popupButton.contains(e.target);
-    let isClickForm = popupForm.contains(e.target);
-    if(isClickInside){
-        popupForm.classList.add('popup-js-active');
+    // Same-page links such as /#contact leave the menu open otherwise.
+    nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && nav.classList.contains('mobile-nav-active')) {
+            setOpen(false);
+            toggle.focus();
+        }
+    });
+
+    window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => {
+        if (e.matches) setOpen(false);
+    });
+})();
+
+// Product data sheet download dialog
+(function () {
+    const openButton = document.querySelector('#pdf-button-js');
+    const popupMain = document.querySelector('.popup-main');
+    const popupForm = document.querySelector('.popup-js');
+    if (!openButton || !popupMain || !popupForm) return;
+
+    const form = popupForm.querySelector('.popup-form');
+    const successAlert = document.querySelector('.success-js');
+    const errorAlert = document.querySelector('.error-js');
+
+    const open = () => {
         popupMain.classList.add('popup-main-active');
-    }else if(isClickForm){
+        popupForm.classList.add('popup-js-active');
+        const firstField = popupForm.querySelector('input:not([type=hidden])');
+        if (firstField) firstField.focus();
+    };
 
-    }else{
-        popupForm.classList.remove('popup-js-active');
+    const close = () => {
         popupMain.classList.remove('popup-main-active');
-    }
-})
-popupCloses.forEach((popupClose) => {
-    popupClose.addEventListener('click', e => {
         popupForm.classList.remove('popup-js-active');
-        popupMain.classList.remove('popup-main-active');
-    })
-})
+        openButton.focus();
+    };
 
-//download
+    openButton.addEventListener('click', open);
+    popupForm.querySelectorAll('.popup-close').forEach((btn) => btn.addEventListener('click', close));
 
+    popupMain.addEventListener('click', (e) => {
+        if (e.target === popupMain) close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && popupMain.classList.contains('popup-main-active')) close();
+    });
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(new FormData(form)).toString(),
+        })
+            .then((response) => {
+                if (!response.ok) throw new Error(response.statusText);
+                close();
+                successAlert.classList.add('success-js-active');
+                form.reset();
+            })
+            .catch(() => {
+                close();
+                errorAlert.classList.add('error-js-active');
+            });
+    });
+
+    document.querySelector('.success-js-cross')?.addEventListener('click', () => successAlert.classList.remove('success-js-active'));
+    document.querySelector('.error-js-cross')?.addEventListener('click', () => errorAlert.classList.remove('error-js-active'));
+})();

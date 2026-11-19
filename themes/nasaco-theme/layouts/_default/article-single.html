@@ -1,68 +1,47 @@
 {{ define "main" }}
-<section class="lg:h-[300px]">
-    {{$image_description:= .Title}}
-    {{with .Params.bannerImage}}
-        {{- $img:= resources.Get  (printf "%s" .) -}}
-        {{- $img_desktop:= $img.Resize "webp 1920x" -}}
-        {{- $img_mobile:= $img.Resize "webp 720x" -}}
-            <picture>
-                <source media="(max-width: 979px)" srcset="{{$img_mobile.Permalink}}">
-                <source media="(min-width: 980px)" srcset="{{$img_desktop.Permalink}}">
-                <img class="h-full w-full object-cover" width="{{$img_desktop.Width}}" height="{{$img_desktop.Height}}" src="{{$img_mobile.Permalink}}" alt="{{$image_description}}">
-            </picture>
-    {{end}}
-</section>
-<section>
+{{- $parent := site.GetPage "/articles" -}}
+{{- $meta := partial "inline/article-meta.html" . -}}
+{{ partial "components/page-header.html" (dict "page" . "parent" $parent "title" .Title "lead" .Description "meta" $meta) }}
+
+<section class="section">
     <div class="container">
-        <div class="px-5 py-10 lg:px-[93px] lg:py-[50px] relative top-[-50px] lg:top-[-122px] bg-white prose-xl prose-h2:text-[36px] prose-h2:mt-0 prose-h2:mb-12 lg:prose-h2:text-[42px] prose-h2:font-semibold prose-h2:text-[#261C4A] prose-h2:leading-[1.5] lg:prose-h2:leading-[1.77] prose-p:text-sm lg:prose-p:text-base prose-p:mb-[30px] prose-p:text-[#424242] prose-h3:text-[22px] lg:prose-h3:text-[32px] prose-h3:font-semibold prose-h3:leading-[1.5] lg:prose-h3:leading-[1.77] prose-h3:mb-3 prose-h3:mt-[54px]  prose-h3:text-[#261C4A] content">
-            {{ .Content }}
+        <div class="mx-auto max-w-measure">
+            {{- with .Params.featureImage }}{{ with resources.Get . }}
+            {{- $img := cond (lt .Width 1200) . (.Resize "webp 1200x") }}
+            <figure class="mb-12">
+                <img class="w-full h-auto rounded-[4px]" src="{{ $img.Permalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="">
+            </figure>
+            {{- end }}{{ end }}
+            <div class="content">
+                {{ .Content }}
+            </div>
+            <p class="mt-14 pt-8 border-t border-rule body-text">
+                Questions about this article? Call <a class="text-link" href="tel:{{ site.Params.phone_url }}">{{ site.Params.phone }}</a>
+                or email <a class="text-link" href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a>.
+            </p>
         </div>
     </div>
 </section>
 
-<section class="pt-[1px] pb-[10px] lg:pb-[128px]">
+{{- $related := where (.Site.RegularPages.Related .) "Type" "article" | first 3 -}}
+{{- if not $related }}{{ $related = where (where site.RegularPages "Type" "article") "Permalink" "!=" .Permalink | first 3 }}{{ end -}}
+{{- with $related }}
+<section class="section bg-mist">
     <div class="container">
-        <h2 class="section-heading mb-[90px] text-center">Other Articles</h2>
-        <div class="lg:flex lg:gap-5 max-w-[1195px] w-full mx-auto">
-            {{ $related := .Site.RegularPages.Related . | first 3 }}
-            {{ range $related }}
-            <article class="mb-8 lg:mb-0 max-w-[380px] w-full flex flex-col mx-auto">
-                <div class="max-w-[380px] h-[284px]">
-                    <a href="{{.Permalink}}" aria-label="{{.Title}}">
-                        {{$image_description:= .Title}}
-                        {{with .Params.featureImage}}
-                        {{ $image_type_arr := split . "." }}
-                        {{ $image_ext := index $image_type_arr 1 }}
-                            {{- $img:= resources.Get  (printf "%s" .) -}}
-                            {{- $img_desktop:= $img.Resize "webp 380x" -}}
-                            <img loading="lazy" class="h-full w-full object-cover" width="{{$img_desktop.Width}}" height="{{$img_desktop.Height}}" src="{{$img_desktop.Permalink}}" alt="{{$image_description}}">
-                        {{end}}
-                    </a>
-                </div>
-                <div>
-                    <div class="flex flex-wrap my-5 gap-2">
-                        {{ $categories:= .Params.categories }}
-                        {{ range $categories }}
-                            <p class="yellowish-green table">{{. | markdownify}}</p>
-                        {{ end }}
-                    </div>
-                    <a href="{{.Permalink}}">
-                        <h3 class="text-[22px] tracking-[-0.015em] leading-[1.3] text-[#00273F] mb-3">{{.Title | markdownify}}</h3>
-                    </a>
-                    <p class="secondary-text leading-[1.5] mb-12">{{.Description | markdownify | emojify}}</p>
-                </div>
-                <div class="mt-auto">
-                    <a class="icon-btn" href="{{.Permalink}}">Read more 
-                        <svg class="inline ml-[10px]" width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="16.5" cy="16.5" r="16" stroke="#0027F4"/>
-                            <path d="M17.4262 10.6071L22.7298 15.9107L17.4262 21.2143" stroke="#0027F4" stroke-miterlimit="10"/>
-                            <path d="M22.7296 15.9106H10.6071" stroke="#0027F4" stroke-miterlimit="10"/>
-                        </svg>
-                    </a>
-                </div>
-            </article>
-            {{ end }}
+        <h2 class="section-heading mb-12">Other articles</h2>
+        <div class="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+            {{- range . }}
+            {{ partial "components/article-teaser.html" . }}
+            {{- end }}
         </div>
     </div>
 </section>
+{{- end }}
 {{ end }}
+
+{{- define "partials/inline/article-meta.html" -}}
+<p class="flex flex-wrap items-center gap-x-3 gap-y-2 meta">
+    {{- range .Params.categories }}<span class="category bg-white">{{ . | markdownify }}</span>{{ end }}
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+</p>
+{{- end -}}
