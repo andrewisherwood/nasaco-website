@@ -1,5 +1,6 @@
 baseURL = 'https://nasaco-website.netlify.app/'
 languageCode = 'en-us'
+enableRobotsTXT = true
 title = "Nasaco"
 theme = "nasaco-theme"
 # post excerpt

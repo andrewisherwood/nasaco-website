@@ -7,6 +7,11 @@
 
     <!-- mobile responsive meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    {{- /* Review and deploy-preview builds live on netlify.app; keep them out of search results.
+         Switching baseURL to the real domain removes this automatically. */}}
+    {{- if in site.BaseURL "netlify.app" }}
+    <meta name="robots" content="noindex, nofollow">
+    {{- end }}
     <meta name="description" content="{{ .Params.Description | default site.Params.description }}">
     {{ with site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
     {{ hugo.Generator }}
