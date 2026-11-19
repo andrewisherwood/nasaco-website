@@ -1,4 +1,4 @@
-baseURL = 'https://nasaco-website.netlify.app/'
+baseURL = 'https://www.nasaco.ch/'
 languageCode = 'en-us'
 enableRobotsTXT = true
 title = "Nasaco"

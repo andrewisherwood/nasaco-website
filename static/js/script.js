@@ -56,7 +56,6 @@
         const data = new FormData(form);
         data.set('email', email);
         data.set('datasheet', link.dataset.gatedSheet);
-        data.set('terms', 'on');
         return fetch('/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
