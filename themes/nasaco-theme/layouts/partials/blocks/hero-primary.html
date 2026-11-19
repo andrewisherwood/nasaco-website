@@ -1,0 +1,16 @@
+<section class="h-[510px] 2xl:h-[675px] w-full p-0">
+    {{$image_description:= .image_description}}
+    {{if .image}}
+    {{if .image_mobile}}
+        {{- $img:= resources.Get  (printf "%s" .image) -}}
+        {{- $img_mob:= resources.Get  (printf "%s" .image_mobile) -}}
+        {{- $img_desktop:= $img.Resize "webp 1920x" -}}
+        {{- $img_mobile:= $img_mob.Resize "webp 720x" -}}
+            <picture>
+                <source media="(max-width: 979px)" srcset="{{$img_mobile.Permalink}}">
+                <source media="(min-width: 980px)" srcset="{{$img_desktop.Permalink}}">
+                <img class="h-full w-full object-cover" width="{{$img_desktop.Width}}" height="{{$img_desktop.Height}}" src="{{$img_mobile.Permalink}}" alt="{{$image_description}}">
+            </picture>
+    {{end}}
+    {{end}}
+</section>

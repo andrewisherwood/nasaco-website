@@ -1,0 +1,10 @@
+{{ define "main" }}
+    {{ range .Params.page_sections }}
+        {{ if eq "hero-secondary" .template }}
+            {{ partial "blocks/hero-secondary.html" . }}
+        {{ end }}
+        {{ if eq "product-card" .template }}
+            {{ partial "blocks/product-card.html" $ }}
+        {{ end }}
+    {{ end }}
+{{ end }}

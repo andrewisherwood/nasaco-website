@@ -1,0 +1,46 @@
+<head>
+
+    <!-- base url -->
+    {{ if or (eq site.BaseURL "/") (eq site.BaseURL "http://localhost:1313/") (eq site.BaseURL "http://examplesite.org/") (eq site.BaseURL "https://examplesite.org/") (eq site.BaseURL "http://examplesite.com/") (eq site.BaseURL "https://examplesite.com/")}}{{else}}
+    <base href="{{ site.BaseURL }}">
+    {{ end }}
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <meta name="description" content="{{ .Params.Description | default site.Params.description }}">
+    {{ with site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+    {{ hugo.Generator }}
+
+    {{ "<!-- Open Graph image and Twitter Card metadata -->" | safeHTML }}
+    {{ $image_path := .Params.headerImage | default site.Params.image -}}
+
+    <meta property="og:title" content="{{.Title | default site.Title}}" />
+    <meta property="og:type" content="{{.Type }}" />
+    <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
+    <meta property="og:url" content="{{.Permalink}}" />
+
+    {{with $image_path}}
+    <meta property="og:image" content="{{.}}" />
+    <meta name="twitter:image" content="{{.}}" />
+    {{end}}
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{.Title | default site.Title}}">
+    <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}"/>
+
+    <!-- google analytics -->
+    {{ template "_internal/google_analytics.html" . }}
+
+    <!-- DNS preconnect -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="preconnect" href="//www.google-analytics.com">
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- resources.Get "style.css" will fetch the style.css file. 
+    It will not work if you mention the exact location like "./assets/style.css".-->
+    {{ $style := resources.Get "css/style.css" }}    
+    <link rel="stylesheet" href="{{ $style.Permalink }}">
+    <title>{{.Title | default site.Title}}</title>    
+
+</head>

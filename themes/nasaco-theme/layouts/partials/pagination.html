@@ -1,0 +1,99 @@
+
+{{ $paginator := .Paginator }}
+
+<!-- Number of links either side of the current page. -->
+{{ $adjacent_links := 2 }}
+
+<!-- $max_links = ($adjacent_links * 2) + 1 -->
+{{ $max_links := (add (mul $adjacent_links 2) 1) }}
+
+<!-- $lower_limit = $adjacent_links + 1 -->
+{{ $lower_limit := (add $adjacent_links 1) }}
+
+<!-- $upper_limit = $paginator.TotalPages - $adjacent_links -->
+{{ $upper_limit := (sub $paginator.TotalPages $adjacent_links) }}
+
+<!-- If there's more than one page. -->
+{{ if gt $paginator.TotalPages 1 }}
+
+  <div class="pagination flex justify-center items-center gap-x-[21px]">
+    
+    <!-- First page. -->
+    {{ if $paginator.HasPrev  }}
+    <div class="pagination__previous">
+        <a href="{{ $paginator.Prev.URL }}" aria-label="previous" class="pagination__previous-link pagination-arrow">
+          <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.16003 1.41L3.58003 6L8.16003 10.59L6.75003 12L0.750034 6L6.75003 0L8.16003 1.41Z" fill="#343286"/>
+          </svg>            
+        </a>
+    </div>
+    {{ end }}
+    <!-- Page numbers. -->
+    <div class="pagination__link-wrapper flex justify-center items-center gap-x-[22px]">
+    
+      {{ range $paginator.Pagers }}
+      {{ $.Scratch.Set "page_number_flag" false }}
+
+      
+      <!-- Advanced page numbers. -->
+      {{ if gt $paginator.TotalPages $max_links }}
+
+
+        <!-- Lower limit pages. -->
+        <!-- If the user is on a page which is in the lower limit.  -->
+        {{ if le $paginator.PageNumber $lower_limit }}
+
+          <!-- If the current loop page is less than max_links. -->
+          {{ if le .PageNumber $max_links }}
+            {{ $.Scratch.Set "page_number_flag" true }}
+          {{ end }}
+
+
+        <!-- Upper limit pages. -->
+        <!-- If the user is on a page which is in the upper limit. -->
+        {{ else if ge $paginator.PageNumber $upper_limit }}
+
+          <!-- If the current loop page is greater than total pages minus $max_links -->
+          {{ if gt .PageNumber (sub $paginator.TotalPages $max_links) }}
+            {{ $.Scratch.Set "page_number_flag" true }}
+          {{ end }}
+
+
+        <!-- Middle pages. -->
+        {{ else }}
+          
+          {{ if and ( ge .PageNumber (sub $paginator.PageNumber $adjacent_links) ) ( le .PageNumber (add $paginator.PageNumber $adjacent_links) ) }}
+            {{ $.Scratch.Set "page_number_flag" true }}
+          {{ end }}
+
+        {{ end }}
+
+      
+      <!-- Simple page numbers. -->
+      {{ else }}
+
+        {{ $.Scratch.Set "page_number_flag" true }}
+
+      {{ end }}
+
+      <!-- Output page numbers. -->
+
+      {{ if eq ($.Scratch.Get "page_number_flag") true }}
+          <a  href="{{ .URL }}" aria-label="page {{ .PageNumber }}" class="pagination__link{{ if eq . $paginator }} pagination__link--current{{ end }} text-[#424242]">{{ .PageNumber }}</a>
+        {{ end }}
+      {{ end }}
+    </div>
+
+    <!-- Next page. -->
+    {{ if $paginator.HasNext }}
+    <div class="pagination__next">
+        <a href="{{ $paginator.Next.URL }}" aria-label="next" class="pagination__next-link pagination-arrow">
+          <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.840088 10.59L5.42009 6L0.840088 1.41L2.25009 0L8.25009 6L2.25009 12L0.840088 10.59Z" fill="#343286"/>
+          </svg>
+        </a>
+    </div>
+    {{ end }}
+  </div>
+{{ end }}
+

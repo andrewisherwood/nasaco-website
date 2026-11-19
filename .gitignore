@@ -1,0 +1,9 @@
+node_modules/
+resources/
+public/
+.hugo_build.lock
+.DS_Store
+
+# Legacy WordPress export: contains real user accounts, emails and
+# password hashes (wp_users) plus is 270MB+. Never commit this.
+WP-backup/

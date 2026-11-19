@@ -1,0 +1,22 @@
+{{ define "main" }}
+  {{ range .Params.page_sections }}
+    {{ if eq "hero-primary" .template }}
+      {{ partial "blocks/hero-primary.html" . }}
+    {{ end }}
+    {{ if eq "home-about" .template }}
+      {{ partial "blocks/home-about.html" . }}
+    {{ end }}
+    {{ if eq "home-product" .template }}
+      {{ partial "blocks/home-product-card.html" $ }}
+    {{ end }}
+    {{ if eq "home-solution" .template }}
+      {{ partial "blocks/home-solution.html" . }}
+    {{ end }}
+    {{ if eq "home-article" .template }}
+      {{ partial "blocks/home-article.html" $ }}
+    {{ end }}
+    {{ if eq "home-contact" .template }}
+      {{ partial "blocks/home-contact.html" . }}
+    {{ end }}
+  {{ end }}
+{{ end }}

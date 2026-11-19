@@ -1,0 +1,48 @@
+<section class="pt-[57px] pb-[47px]">
+    <div class="container">
+        {{ range .Params.page_sections }}
+            {{ if eq "product-card" .template }}
+                <h2 class="section-heading text-center">{{ .heading | markdownify }}</h2>
+                <p class="primary-text leading-[1.77] max-w-[770px] text-center mx-auto mb-[59px]">{{ .text | markdownify | emojify }}</p>
+            {{ end }}
+        {{ end }}
+        <div class="flex flex-wrap gap-x-6 gap-y-[41px] justify-center mt-[59px] mb-[43px]">
+            {{ $paginator:=(.Paginator 6).Pages }}
+            {{ $paginatorLength:= len $paginator }}
+            {{ range $index,$article:= $paginator}}
+            <div class="max-w-[374px] w-full bg-[#FFFFFF] shadow-[0_4px_15px_rgba(0,0,0,0.3)] rounded-lg flex flex-col p-3">
+                <div class="max-w-[350px] h-[236px] mb-[18px]">
+                    <a href="{{.Permalink}}">
+                        {{$image_description:= .Title}}
+                        {{with .Params.featureImage}}
+                        {{ $image_type_arr := split . "." }}
+                        {{ $image_ext := index $image_type_arr 1 }}
+                            {{- $img:= resources.Get  (printf "%s" .) -}}
+                            {{- $img_desktop:= $img.Resize "webp 350x" -}}
+                                <img loading="lazy" class="h-full w-full object-cover rounded" width="{{$img_desktop.Width}}" height="{{$img_desktop.Height}}" src="{{$img_desktop.Permalink}}" alt="{{$image_description}}">
+                        {{end}}
+                    </a>
+                </div>
+                <div class="px-3">
+                    <a href="{{.Permalink}}">
+                        <h3 class="text-2xl font-semibold  leading-[1.50] text-[#261C4A] mt-[18px] mb-[14px]">{{ .Title | markdownify }}</h3>
+                    </a>
+                    <p class="text-base leading-[1.5] tracking-[0.01em] text-[#424242] mt-[14px] mb-6">{{ .Description | markdownify | emojify }}</p>
+                </div>
+                <div class="mt-auto px-3 pb-[11px]">
+                    <a class="icon-btn" href="{{.Permalink}}">Read more 
+                        <svg class="inline ml-[10px]" width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="16.5" cy="16.5" r="16" stroke="#0027F4"/>
+                            <path d="M17.4262 10.6071L22.7298 15.9107L17.4262 21.2143" stroke="#0027F4" stroke-miterlimit="10"/>
+                            <path d="M22.7296 15.9106H10.6071" stroke="#0027F4" stroke-miterlimit="10"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+        <div class="py-[18px] px-[10px] relative z-10">
+            {{ partial "pagination.html" . }}
+        </div>
+    </div>
+</section>

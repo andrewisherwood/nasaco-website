@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Poppins";
+    src: local("Poppins"),
+         url("/fonts/poppins-regular-webfont.woff2") format("woff2"),
+         url("/fonts/poppins-regular-webfont.woff") format("woff");
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: local("Poppins"),
+         url("/fonts/poppins-medium-webfont.woff2") format("woff2"),
+         url("/fonts/poppins-medium-webfont.woff") format("woff");
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: local("Poppins"),
+         url("/fonts/poppins-semibold-webfont.woff2") format("woff2"),
+         url("/fonts/poppins-semibold-webfont.woff") format("woff");
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: local("Poppins"),
+         url("/fonts/poppins-bold-webfont.woff2") format("woff2"),
+         url("/fonts/poppins-bold-webfont.woff") format("woff");
+    font-style: normal;
+    font-weight: bold;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: local("Inter"),
+         url("/fonts/Inter-Regular.woff2") format("woff2"),
+         url("/fonts/Inter-Regular.woff") format("woff");
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: local("Inter"),
+         url("/fonts/Inter-Medium.woff2") format("woff2"),
+         url("/fonts/Inter-Medium.woff") format("woff");
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: local("Roboto"),
+         url("/fonts/roboto-light-webfont.woff2") format("woff2"),
+         url("/fonts/roboto-light-webfont.woff") format("woff");
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+}
+
+.visually-hidden {
+    @apply border-0 h-[1px] m-[-1px] overflow-hidden p-0 absolute w-[1px] 
+}
+
+.container {
+    @apply max-w-[1440px] w-full mx-auto px-5 lg:px-10
+}
+
+.section-heading {
+    @apply font-medium text-4xl lg:text-[47px] leading-[1.35] text-[#261C4A] tracking-[-0.015em]
+}
+
+.product-card-heading {
+    @apply text-[26px] font-medium lg:text-[47px] leading-[1.35] text-[#261C4A] tracking-[-0.015em]
+}
+
+.primary-text {
+    @apply text-sm lg:text-base text-[#424242] tracking-[0.01em]
+}
+
+.secondary-text {
+    @apply text-base lg:text-lg text-[#425466] 
+}
+
+.btn {
+    @apply font-medium text-base lg:text-lg text-[#07263D] text-center py-3 px-[85px] lg:px-[107px] rounded-[50px] table
+}
+
+.primary-btn {
+    @apply btn bg-[#F4B400]
+}
+
+.secondary-btn {
+    @apply btn border border-solid border-[#07263D] bg-transparent
+}
+
+.icon-btn {
+    @apply text-lg leading-[1.4] underline text-[#0027F4]
+}
+
+.input {
+    @apply text-base leading-[1.6] placeholder:text-[#8E8E8E] text-[#425466] tracking-[0.5px] px-4 pb-[11px] border-0 border-b border-solid border-[#737B7D] focus-visible:outline-none w-full block
+}
+.category {
+    @apply text-[15px] leading-[1.4] font-medium rounded-[40px] pt-[3px] pb-[5px] px-[10px]
+}
+
+.yellowish-green {
+    @apply category bg-[#E9FBC0] text-[#000000]
+}
+
+.green {
+    @apply category bg-[#2C9A41] text-[#FFF7F7]
+}
+
+.nav-js-active {
+    @apply w-[35px] h-[35px] grid place-items-center
+}
+
+.nav-bar-top-active {
+    @apply rotate-45 absolute
+}
+
+.nav-bar-center-active {
+    @apply hidden
+}
+
+.nav-bar-bottom-active {
+    @apply rotate-[-45deg] absolute
+}
+
+.nav-item{
+    @apply text-[#FFFFFF] text-sm pt-[29px] pb-[5px] md:pb-[25px] px-3 border-b-2 border-solid border-transparent hover:text-[#F4B400] hover:border-[#F4B400] lg:text-base lg:px-[19px]
+}
+
+.nav-item-active {
+    @apply text-[#F4B400] border-b-2 border-solid border-[#F4B400] font-bold
+}
+
+.nav-bar {
+    @apply w-[30px] h-[3px] bg-white my-[6px] ease-linear duration-300
+}
+
+.mobile-nav-active {
+    @apply fixed bg-[#111111] left-0 right-0 bottom-0 top-[78px] min-h-screen flex p-[50px] flex-col overflow-auto z-10
+}
+
+.body-active {
+    @apply fixed
+}
+
+.pagination-arrow{
+    @apply w-12 h-12 rounded-full bg-[#748ec333] grid place-items-center
+}
+
+.pagination__link{
+    @apply text-[#424242] w-[62px] grid place-items-center
+}
+
+.pagination__link--current{
+    @apply font-bold text-[#343286]
+}
+
+.popup-main-active{
+    @apply min-h-screen bg-[#00000066] z-10 grid
+}
+.popup-js-active{
+    @apply block
+}
+.success-js-active {
+    @apply flex
+}
+.error-js-active {
+    @apply flex
+}
+
+/*blog page content design*/
+.content {
+    @apply prose-h1:text-[#261C4A] prose-h1:font-bold prose-h4:text-[#261C4A] prose-h4:font-semibold prose-img:max-w-full prose-img:h-auto prose-img:object-cover prose-img:mx-auto prose-h5:text-[#261C4A] prose-h6:text-[#261C4A] prose-h5:font-semibold prose-h6:font-medium prose-a:underline hover:prose-a:cursor-pointer prose-blockquote:italic prose-pre:bg-[#EAECED] prose-pre:py-4 prose-pre:px-4 prose-pre:rounded-[4px] prose-pre:overflow-x-auto prose-pre:max-h-[400px] prose-ol:prose-ul:list-disc prose-strong:text-[#261C4A] prose-strong:font-bold prose-p:text-sm lg:prose-p:text-base prose-ul:w-full prose-ul:mt-[60px] prose-ul:mb-[42px] prose-ul:pl-0  prose-ul:list-none prose-ul:border prose-ul:border-solid prose-ul:border-[#C4C4C4] prose-li:text-base prose-li:text-[#425466] prose-li:py-6 prose-li:px-[33px] prose-li:border-b prose-li:border-solid prose-li:border-[#C4C4C4] last:prose-li:border-b-0 
+}

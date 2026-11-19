@@ -1,0 +1,86 @@
+<section class="pt-[56px] pb-[52px]">
+    <div class="container">
+        <div class="max-w-[1195px] w-full mx-auto">
+            {{ range $index, $product:=  first 6 (where .Site.RegularPages "Type" "product").ByDate.Reverse }}
+            {{ $reminderOdd := mod $index 2 }}
+            {{ if eq $reminderOdd 0 }}
+            <div class="max-w-[580px] lg:max-w-none mx-auto py-5 lg:py-[50px] lg:flex lg:items-center lg:gap-[70px] mb-8 lg:mb-0">
+                <div class="lg:w-[500px] xl:w-[580px] lg:h-[433px] aspect-video lg:aspect-auto shrink-0 mb-[30px] lg:mb-0">
+                    <a href="{{.Permalink}}" aria-label="{{.Title}}">
+                        {{$image_description:= .Title}}
+                        {{with .Params.featureImage}}
+                        {{ $image_type_arr := split . "." }}
+                        {{ $image_ext := index $image_type_arr 1 }}
+                            {{- $img:= resources.Get  (printf "%s" .) -}}
+                            {{- $img_desktop:= $img.Resize "webp 580x" -}}
+                            {{- $img_mobile:= $img.Resize "webp 360x" -}}
+                            <picture>
+                                <source media="(min-width: 980px)" srcset="{{$img_desktop.Permalink}}">
+                                <source media="(max-width: 979px)" srcset="{{$img_mobile.Permalink}}">
+                                <img loading="lazy" class="h-full w-full object-cover" width="{{$img_desktop.Width}}" height="{{$img_desktop.Height}}" src="{{$img_desktop.Permalink}}" alt="{{$image_description}}">
+                            </picture>
+                        {{end}}
+                    </a>
+                </div>
+                <div class="">
+                    <a href="{{.Permalink}}">
+                        <h2 class="product-card-heading mb-[30px]">{{.Title | markdownify}}</h2>
+                    </a>
+                    <p class="secondary-text leading-[1.5] mb-[30px] mt-[30px] lg:w-[90%]">{{.Description | markdownify | emojify}}</p>
+                    <a class="icon-btn mt-[30px]" href="{{.Permalink}}">Read more 
+                        <svg class="inline ml-[10px]" width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="16.5" cy="16.5" r="16" stroke="#0027F4"/>
+                            <path d="M17.4262 10.6071L22.7298 15.9107L17.4262 21.2143" stroke="#0027F4" stroke-miterlimit="10"/>
+                            <path d="M22.7296 15.9106H10.6071" stroke="#0027F4" stroke-miterlimit="10"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            {{ end }}
+            {{ $reminderEven := mod $index 2 }}
+            {{ if eq $reminderEven 1 }}
+            <div class="max-w-[580px] lg:max-w-none mx-auto py-5 lg:py-[50px] block lg:flex lg:flex-row-reverse lg:items-center lg:gap-[70px] mb-8 lg:mb-0">
+                <div class="lg:w-[500px] xl:w-[580px] lg:h-[433px] aspect-video lg:aspect-auto shrink-0 mb-[30px] lg:mb-0">
+                    <a href="{{.Permalink}}" aria-label="{{.Title}}">
+                        {{$image_description:= .Title}}
+                        {{with .Params.featureImage}}
+                        {{ $image_type_arr := split . "." }}
+                        {{ $image_ext := index $image_type_arr 1 }}
+                            {{- $img:= resources.Get  (printf "%s" .) -}}
+                            {{- $img_desktop:= $img.Resize "webp 580x" -}}
+                            {{- $img_mobile:= $img.Resize "webp 360x" -}}
+                            <picture>
+                                <source media="(min-width: 980px)" srcset="{{$img_desktop.Permalink}}">
+                                <source media="(max-width: 979px)" srcset="{{$img_mobile.Permalink}}">
+                                <img loading="lazy" class="h-full w-full object-cover" width="{{$img_desktop.Width}}" height="{{$img_desktop.Height}}" src="{{$img_desktop.Permalink}}" alt="{{$image_description}}">
+                            </picture>
+                        {{end}}
+                    </a>
+                </div>
+                <div class="">
+                    <a href="{{.Permalink}}">
+                        <h2 class="product-card-heading mb-[30px]">{{.Title | markdownify}}</h2>
+                    </a>
+                    <p class="secondary-text leading-[1.5] mb-[30px] mt-[30px] lg:w-[90%]">{{.Description | markdownify | emojify}}</p>
+                    <a class="icon-btn mt-[30px]" href="{{.Permalink}}">Read more 
+                        <svg class="inline ml-[10px]" width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="16.5" cy="16.5" r="16" stroke="#0027F4"/>
+                            <path d="M17.4262 10.6071L22.7298 15.9107L17.4262 21.2143" stroke="#0027F4" stroke-miterlimit="10"/>
+                            <path d="M22.7296 15.9106H10.6071" stroke="#0027F4" stroke-miterlimit="10"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            {{ end }}
+            {{ end }}
+        </div>
+        {{ range .Params.page_sections }}
+            {{ if eq "home-product" .template }}
+                {{ if .button }}
+                <a class="secondary-btn mx-auto mt-4 lg:mt-0" href="{{ .button_url | relURL }}">{{ .button | markdownify }}</a>
+                {{ end }}
+            {{ end }}
+        {{ end }}
+    </div>
+</section>
+

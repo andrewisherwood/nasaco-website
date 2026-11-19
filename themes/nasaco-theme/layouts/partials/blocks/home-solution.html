@@ -1,0 +1,8 @@
+<section class="pt-[117px] lg:pt-[166px] pb-[117px] bg-[#07263D]">
+    <div class="container">
+        <h2 class="text-[47px] md:text-[70px] text-white leading-[1.1] font-medium text-center mb-[70px]">{{.heading | markdownify}}</h2>
+        {{ if .button }}
+            <a class="primary-btn mx-auto" href="{{.button_url | relURL}}">{{.button | markdownify}}</a>
+        {{ end }}
+    </div>
+</section>

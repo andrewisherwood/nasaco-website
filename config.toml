@@ -1,0 +1,111 @@
+baseURL = 'https://nasaco-website.netlify.app/'
+languageCode = 'en-us'
+title = "Nasaco"
+theme = "nasaco-theme"
+# post excerpt
+summaryLength = "10"
+#defaultContentLanguage = "es"
+# disable language
+disableLanguages = [] # example: ["fr"] for disable french language
+#google analytics
+googleAnalytics = ''
+
+[permalinks]
+pages = "/:slug"
+articles = "/:slug"
+products = "/:slug"
+
+[[module.mounts]]
+source = "static/images"
+target = "assets/images"
+[[module.mounts]]
+source = "static/css"
+target = "assets/css"
+
+# main menu
+[[menu.main]]
+  identifier = "Home"
+  name = "Home"
+  url = "/"
+  weight = 1
+
+[[menu.main]]
+  identifier = "About"
+  name = "About us"
+  url = "/#about"
+  weight = 2
+
+[[menu.main]]
+  identifier = "Products & Services"
+  name = "Products & Services"
+  url = "/products"
+  weight = 3
+
+[[menu.main]]
+  identifier = "Articles"
+  name = "Articles"
+  url = "/articles"
+  weight = 4
+
+[[menu.main]]
+  identifier = "Contact"
+  name = "Contact us"
+  url = "/#contact"
+  weight = 5
+
+#################### default parameters ################################
+[params]
+# favicon
+favicon = "images/"
+# logo
+logo = "/images/logo_white.png"
+logo_text = "Nasaco Logo"
+footer_logo = "/images/logo_white.png"
+form_contact_heading = "Nasaco International Ltd"
+address_heading = "Address"
+address = "Petite Rue 3, CH 1304 Cossonay, Switzerland."
+contact_heading = "Contacts"
+email = "info@nasaco.ch"
+phone = "+ 41 21 863 0310"
+phone_url = "+41218630310"
+copyright_text = "All Rights Reserved"
+
+[related]
+includeNewer = true
+threshold = 80
+toLower = false
+[[related.indices]]
+name = "categories"
+weight = 80
+[[related.indices]]
+name = "tags"
+weight = 60
+[[related.indices]]
+name = "date"
+weight = 40
+
+[params.social]
+facebook = "#"
+instagram = "#"
+youtube = "#"
+linkedin = "#"
+
+
+
+# OpenGraph / Twitter Card metadata
+description = "Solutions for flotation. Nasaco International Ltd. produces and markets chemicals for froth flotation of minerals."
+author = "Nasaco"
+image = "images/home-hero.png" # this image will be used as fallback if a page has no image of its own
+
+# imaging processing
+[imaging]
+# Default JPEG or WebP quality setting. Default is 100.
+quality = 75
+
+
+[markup]
+[markup.goldmark.renderer]
+unsafe= true
+
+
+
