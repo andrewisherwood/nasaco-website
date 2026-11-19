@@ -30,53 +30,104 @@
     });
 })();
 
-// Product data sheet download dialog
+// Product data sheet downloads, gated by an email address
 (function () {
-    const openButton = document.querySelector('#pdf-button-js');
+    const links = document.querySelectorAll('[data-gated-sheet]');
     const popupMain = document.querySelector('.popup-main');
     const popupForm = document.querySelector('.popup-js');
-    if (!openButton || !popupMain || !popupForm) return;
+    if (!links.length || !popupMain || !popupForm) return;
 
     const form = popupForm.querySelector('.popup-form');
+    const sheetName = document.querySelector('#popup-sheet-name');
     const successAlert = document.querySelector('.success-js');
+    const successLink = document.querySelector('#success-link');
     const errorAlert = document.querySelector('.error-js');
+    const STORAGE_KEY = 'nasaco-datasheet-email';
+    let current = null;
 
-    const open = () => {
+    const storedEmail = () => {
+        try { return sessionStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+    };
+    const storeEmail = (email) => {
+        try { sessionStorage.setItem(STORAGE_KEY, email); } catch (e) { /* private mode: ask again next time */ }
+    };
+
+    const record = (email, link, keepalive) => {
+        const data = new FormData(form);
+        data.set('email', email);
+        data.set('datasheet', link.dataset.gatedSheet);
+        data.set('terms', 'on');
+        return fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(data).toString(),
+            keepalive: keepalive,
+        }).then((response) => {
+            if (!response.ok) throw new Error(response.statusText);
+        });
+    };
+
+    const startDownload = (href) => {
+        const a = document.createElement('a');
+        a.href = href;
+        a.download = '';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    };
+
+    const hideAlerts = () => {
+        successAlert.classList.remove('success-js-active');
+        errorAlert.classList.remove('error-js-active');
+    };
+
+    const open = (link) => {
+        current = link;
+        hideAlerts();
+        sheetName.textContent = link.dataset.gatedSheet;
         popupMain.classList.add('popup-main-active');
         popupForm.classList.add('popup-js-active');
-        const firstField = popupForm.querySelector('input:not([type=hidden])');
-        if (firstField) firstField.focus();
+        const email = form.querySelector('input[type=email]');
+        if (email) email.focus();
     };
 
     const close = () => {
         popupMain.classList.remove('popup-main-active');
         popupForm.classList.remove('popup-js-active');
-        openButton.focus();
+        if (current) current.focus();
     };
 
-    openButton.addEventListener('click', open);
-    popupForm.querySelectorAll('.popup-close').forEach((btn) => btn.addEventListener('click', close));
+    links.forEach((link) => link.addEventListener('click', (e) => {
+        const email = storedEmail();
+        if (email) {
+            // Already gave an email this visit: let the link open the PDF and record it in the background.
+            record(email, link, true).catch(() => {});
+            return;
+        }
+        e.preventDefault();
+        open(link);
+    }));
 
+    popupForm.querySelectorAll('.popup-close').forEach((btn) => btn.addEventListener('click', close));
     popupMain.addEventListener('click', (e) => {
         if (e.target === popupMain) close();
     });
-
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && popupMain.classList.contains('popup-main-active')) close();
     });
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(new FormData(form)).toString(),
-        })
-            .then((response) => {
-                if (!response.ok) throw new Error(response.statusText);
+        if (!current) return;
+        const link = current;
+        const email = form.querySelector('input[type=email]').value;
+        record(email, link, false)
+            .then(() => {
+                storeEmail(email);
                 close();
+                successLink.href = link.href;
                 successAlert.classList.add('success-js-active');
-                form.reset();
+                startDownload(link.href);
             })
             .catch(() => {
                 close();

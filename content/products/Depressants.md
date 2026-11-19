@@ -20,7 +20,6 @@ page_sections:
   heading: Download pdf specifications
   text: Enter your email address to download pdf
   button_download: Download 
-  button_download_url: '/images/Depressants.jpeg'
   button_cancel: Cancel
 ---
 ## Nasmin

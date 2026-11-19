@@ -19,7 +19,6 @@ page_sections:
   heading: Download pdf specifications
   text: Enter your email address to download pdf
   button_download: Download 
-  button_download_url: '/images/Laboratory Services.png'
   button_cancel: Cancel
 ---
 ## Laboratory Services
