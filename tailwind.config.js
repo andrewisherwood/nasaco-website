@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["themes/nasaco-theme/layouts/**/*.html", "static/js/**/*.js"],
+  content: ["themes/nasaco-theme/layouts/**/*.html", "static/js/**/*.js", "content/**/*.md"],
   theme: {
     fontFamily: {
       serif: ["'Source Serif 4'", "Georgia", "'Times New Roman'", "serif"],
