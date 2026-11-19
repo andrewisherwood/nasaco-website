@@ -1,5 +1,5 @@
 {{- /* Title band for inner pages.
-     Context: dict "page" (the page), "parent" (optional section page for the breadcrumb),
+     Context: dict "page" (the page), "parent" or "parents" (optional page, or list of pages, for the breadcrumb),
      "title", "lead", "meta" (optional HTML) and "image" (optional asset path). */ -}}
 {{- $page := .page -}}
 <section class="bg-mist border-b border-rule">
@@ -9,9 +9,11 @@
                 <nav aria-label="Breadcrumb">
                     <ol class="flex flex-wrap items-center gap-2 meta">
                         <li><a class="underline underline-offset-4 hover:text-ink" href="/">Home</a></li>
-                        {{- with .parent }}
+                        {{- range .parents | default (cond (isset . "parent") (slice .parent) slice) }}
+                        {{- with . }}
                         <li aria-hidden="true">/</li>
                         <li><a class="underline underline-offset-4 hover:text-ink" href="{{ .Permalink }}">{{ .Title }}</a></li>
+                        {{- end }}
                         {{- end }}
                         <li aria-hidden="true">/</li>
                         <li aria-current="page" class="text-ink">{{ $page.Title }}</li>

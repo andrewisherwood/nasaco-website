@@ -1,0 +1,70 @@
+{{ define "main" }}
+{{- /* Content pages such as About us, Logistics and the product and laboratory sub-pages.
+     Front matter: parent (content path of the parent page), gallery (list of image/caption). */ -}}
+{{- $parent := "" -}}
+{{- with .Params.parent }}{{ $parent = site.GetPage . }}{{ end -}}
+{{- $parents := slice -}}
+{{- with $parent }}
+{{- if eq .Type "product" }}{{ $parents = $parents | append (site.GetPage "/products") }}{{ end }}
+{{- $parents = $parents | append . }}
+{{- end -}}
+{{ partial "components/page-header.html" (dict "page" . "parents" $parents "title" .Title "lead" .Description) }}
+
+{{- $siblings := slice -}}
+{{- with .Params.parent }}{{ $siblings = (where site.RegularPages "Params.parent" .).ByWeight }}{{ end -}}
+
+<section class="section">
+    <div class="container">
+        <div class="grid gap-14 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-20">
+            <div class="min-w-0">
+                <div class="content">
+                    {{ .Content }}
+                </div>
+
+                {{- with .Params.gallery }}
+                <div class="mt-12 grid gap-6 sm:grid-cols-2">
+                    {{- range $item := . }}
+                    {{- with resources.Get $item.image }}
+                    {{- $img := .Fill "webp 760x570 Center" }}
+                    <figure>
+                        <img loading="lazy" class="w-full h-auto rounded-[4px] bg-mist" src="{{ $img.Permalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $item.caption }}">
+                        <figcaption class="meta mt-2">{{ $item.caption }}</figcaption>
+                    </figure>
+                    {{- end }}
+                    {{- end }}
+                </div>
+                {{- end }}
+            </div>
+
+            <aside class="lg:sticky lg:top-[120px] lg:self-start space-y-6">
+                {{- if $parent }}
+                <nav class="rounded-[4px] border border-rule p-7" aria-label="In this section">
+                    <h2 class="card-heading">In this section</h2>
+                    <ul class="mt-4 space-y-2">
+                        <li><a class="text-link" href="{{ $parent.Permalink }}">{{ $parent.Title }}</a></li>
+                        {{- range $siblings }}
+                        <li>
+                            {{- if eq .Permalink $.Permalink }}
+                            <span class="font-medium text-ink" aria-current="page">{{ .Title }}</span>
+                            {{- else }}
+                            <a class="text-link" href="{{ .Permalink }}">{{ .Title }}</a>
+                            {{- end }}
+                        </li>
+                        {{- end }}
+                    </ul>
+                </nav>
+                {{- end }}
+                <div class="rounded-[4px] border border-rule bg-mist p-7">
+                    <h2 class="card-heading">Talk to our team</h2>
+                    <p class="body-text mt-3 text-base">For product data sheets, safety data sheets or advice on your application, contact us.</p>
+                    <ul class="mt-5 space-y-2">
+                        <li><a class="text-link" href="tel:{{ site.Params.phone_url }}">{{ site.Params.phone }}</a></li>
+                        <li><a class="text-link" href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></li>
+                    </ul>
+                    <a class="secondary-btn w-full mt-7" href="/#contact">Send an enquiry</a>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+{{ end }}

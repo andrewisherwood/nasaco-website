@@ -49,6 +49,6 @@ Nasaco has a wide range of collectors for all types of flotation. Our expertise 
 
 Our collectors are used in the following mineral flotation applications:
 
-- Base and precious metals
-- Industrial minerals
-- Coal
+- [Base and precious metals](/products/collectors/base-and-precious-metals/)
+- [Industrial minerals](/products/collectors/industrial-minerals/)
+- [Coal](/products/collectors/coal/)

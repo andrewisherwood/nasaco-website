@@ -25,7 +25,7 @@ page_sections:
 
 Nasaco International Ltd operates a mineral processing laboratory through its Betachem partner in South Africa. The aim of the laboratory is to support the design, development and production of mining chemicals for the group. The laboratory provides the following services:
 
-- Mineral identification and quantification by automated Scanning Electron Microscope (SEM) and Mineral Liberation Analyser (MLA) software.
+- Mineral identification and quantification by automated Scanning Electron Microscope (SEM) and [Mineral Liberation Analyser (MLA)](/laboratory-services/mineral-liberation-analysis-mla/) software.
 - PGM and Gold particle search by SEM using MLA software.
 - Mineral identification and quantification by XRD
 - Mineral association and liberation studies by SEM using MLA software
@@ -34,6 +34,6 @@ Nasaco International Ltd operates a mineral processing laboratory through its Be
 - Pilot plant test projects using the Betachem mobile flotation pilot plant
 - Reagent suite development work
 - Flocculation and filtration tests
-- Frother and depressant scoping work using the Bikerman froth stability method
+- Frother and depressant scoping work using the [Bikerman froth stability method](/laboratory-services/bikerman/)
 - Reagent quality tests: gas chromatograph, micro distillation, viscosity, density, flash point, xanthate activity by titration, xanthate activity and type by GC
 - Site trouble shooting and benchmarking assistance: residence time, air flow rate, release analysis, particle flotability, water quality, froth stability, value mineral lost to tails, mineral analysis, gangue to concentrate, mineral analysis
