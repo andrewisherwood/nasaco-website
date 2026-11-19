@@ -1,0 +1,38 @@
+{{- /* Title band for inner pages.
+     Context: dict "page" (the page), "parent" (optional section page for the breadcrumb),
+     "title", "lead", "meta" (optional HTML) and "image" (optional asset path). */ -}}
+{{- $page := .page -}}
+<section class="bg-mist border-b border-rule">
+    <div class="container py-10 lg:py-14">
+        <div class="grid gap-10 {{ if .image }}lg:grid-cols-[7fr_5fr] lg:items-center lg:gap-16{{ end }}">
+            <div>
+                <nav aria-label="Breadcrumb">
+                    <ol class="flex flex-wrap items-center gap-2 meta">
+                        <li><a class="underline underline-offset-4 hover:text-ink" href="/">Home</a></li>
+                        {{- with .parent }}
+                        <li aria-hidden="true">/</li>
+                        <li><a class="underline underline-offset-4 hover:text-ink" href="{{ .Permalink }}">{{ .Title }}</a></li>
+                        {{- end }}
+                        <li aria-hidden="true">/</li>
+                        <li aria-current="page" class="text-ink">{{ $page.Title }}</li>
+                    </ol>
+                </nav>
+                {{- with .meta }}
+                <div class="mt-6">{{ . }}</div>
+                {{- end }}
+                <h1 class="section-heading mt-4 lg:text-[3.25rem] lg:leading-[1.1]">{{ .title | markdownify }}</h1>
+                {{- with .lead }}
+                <p class="lead mt-5 max-w-[60ch]">{{ . | markdownify | emojify }}</p>
+                {{- end }}
+            </div>
+            {{- with .image }}
+            {{- with resources.Get . }}
+            {{- $img := .Fill "webp 900x600 Center" }}
+            <div class="overflow-hidden rounded-[4px] aspect-[3/2] bg-white">
+                <img class="h-full w-full object-cover" src="{{ $img.Permalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="">
+            </div>
+            {{- end }}
+            {{- end }}
+        </div>
+    </div>
+</section>

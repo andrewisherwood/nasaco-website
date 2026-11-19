@@ -68,7 +68,12 @@ contact_heading = "Contacts"
 email = "info@nasaco.ch"
 phone = "+ 41 21 863 0310"
 phone_url = "+41218630310"
-copyright_text = "All Rights Reserved"
+copyright_text = "All rights reserved"
+
+# OpenGraph / Twitter Card metadata
+description = "Solutions for flotation. Nasaco International Ltd. produces and markets chemicals for froth flotation of minerals."
+author = "Nasaco"
+image = "images/home-hero.jpg" # this image will be used as fallback if a page has no image of its own
 
 [related]
 includeNewer = true
@@ -92,10 +97,6 @@ linkedin = "#"
 
 
 
-# OpenGraph / Twitter Card metadata
-description = "Solutions for flotation. Nasaco International Ltd. produces and markets chemicals for froth flotation of minerals."
-author = "Nasaco"
-image = "images/home-hero.png" # this image will be used as fallback if a page has no image of its own
 
 # imaging processing
 [imaging]

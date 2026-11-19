@@ -5,7 +5,13 @@ page_sections:
 - template: hero-primary
   image: "/images/home-hero.jpg"
   image_mobile: "/images/home-hero-mobile.jpg"
-  image_description: ""
+  image_description: "Open-pit mine in a mountain valley"
+  heading: Solutions for flotation
+  text: "Nasaco International Ltd. produces and markets chemicals for froth flotation of minerals, with custom formulations developed together with mining operations worldwide."
+  button: View our products
+  button_url: '/products'
+  secondary_button: Contact us
+  secondary_button_url: '#contact'
 - template: home-about
   heading: About us
   text: Nasaco International Ltd. produces and markets chemicals for froth flotation of minerals.
@@ -25,10 +31,13 @@ page_sections:
     # image: '/images/Global Presence.svg'
     # image_description: ''
 - template: home-product
-  button: All Products
+  heading: Products & services
+  text: "Reagents for every stage of the flotation circuit, plus laboratory support for developing the right formulation."
+  button: All products
   button_url: '/products'
 - template: home-solution
   heading: We provide mineral processing solutions
+  text: "Tell us about your ore and your circuit. We will work with your metallurgists to find the right reagent suite."
   button: Contact us
   button_url: '#contact'
 - template: home-article

@@ -1,8 +1,15 @@
-<section class="pt-[117px] lg:pt-[166px] pb-[117px] bg-[#07263D]">
-    <div class="container">
-        <h2 class="text-[47px] md:text-[70px] text-white leading-[1.1] font-medium text-center mb-[70px]">{{.heading | markdownify}}</h2>
-        {{ if .button }}
-            <a class="primary-btn mx-auto" href="{{.button_url | relURL}}">{{.button | markdownify}}</a>
-        {{ end }}
+<section class="bg-navy text-white">
+    <div class="container py-16 lg:py-20">
+        <div class="grid gap-8 lg:grid-cols-[7fr_5fr] lg:items-center lg:gap-16">
+            <h2 class="font-serif font-semibold text-white text-[2rem] leading-[1.15] lg:text-[2.75rem] max-w-[20ch]">{{ .heading | markdownify }}</h2>
+            <div>
+                {{- with .text }}
+                <p class="text-lg leading-[1.6] text-white/[.85]">{{ . | markdownify }}</p>
+                {{- end }}
+                {{- with .button }}
+                <a class="primary-btn mt-7" href="{{ $.button_url | relURL }}">{{ . | markdownify }}</a>
+                {{- end }}
+            </div>
+        </div>
     </div>
 </section>

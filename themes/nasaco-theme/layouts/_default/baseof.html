@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html class="scroll-smooth" lang="{{ site.LanguageCode | default `en-US` }}">
+<html class="scroll-smooth scroll-pt-[88px]" lang="{{ site.LanguageCode | default `en-US` }}">
     {{- partial "head.html" . -}}
-    <body class="font-poppins body-js">
+    <body class="body-js">
+        <a class="skip-link" href="#content">Skip to main content</a>
         {{- partial "header.html" . -}}
-        <div id="content">
+        <main id="content">
         {{- block "main" . }}{{- end }}
-        </div>
+        </main>
 
         {{- partial "footer.html" . -}}
 
-        <script src="/js/script.js"></script>
+        <script src="/js/script.js?v={{ now.Unix }}" defer></script>
     </body>
 </html>

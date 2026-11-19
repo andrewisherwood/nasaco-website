@@ -1,16 +1,30 @@
-<section class="h-[510px] 2xl:h-[675px] w-full p-0">
-    {{$image_description:= .image_description}}
-    {{if .image}}
-    {{if .image_mobile}}
-        {{- $img:= resources.Get  (printf "%s" .image) -}}
-        {{- $img_mob:= resources.Get  (printf "%s" .image_mobile) -}}
-        {{- $img_desktop:= $img.Resize "webp 1920x" -}}
-        {{- $img_mobile:= $img_mob.Resize "webp 720x" -}}
-            <picture>
-                <source media="(max-width: 979px)" srcset="{{$img_mobile.Permalink}}">
-                <source media="(min-width: 980px)" srcset="{{$img_desktop.Permalink}}">
-                <img class="h-full w-full object-cover" width="{{$img_desktop.Width}}" height="{{$img_desktop.Height}}" src="{{$img_mobile.Permalink}}" alt="{{$image_description}}">
-            </picture>
-    {{end}}
-    {{end}}
+<section class="relative isolate overflow-hidden bg-navy">
+    {{- $image_description := .image_description -}}
+    {{- if and .image .image_mobile }}
+    {{- $img := resources.Get .image -}}
+    {{- $img_mob := resources.Get .image_mobile -}}
+    {{- $img_desktop := $img.Resize "webp 1920x" -}}
+    {{- $img_mobile := $img_mob.Resize "webp 828x" -}}
+    <picture>
+        <source media="(max-width: 767px)" srcset="{{ $img_mobile.Permalink }}">
+        <source media="(min-width: 768px)" srcset="{{ $img_desktop.Permalink }}">
+        <img class="absolute inset-0 -z-20 h-full w-full object-cover" width="{{ $img_desktop.Width }}" height="{{ $img_desktop.Height }}" src="{{ $img_desktop.Permalink }}" alt="{{ $image_description }}" fetchpriority="high">
+    </picture>
+    {{- end }}
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-navy-deep/95 via-navy-deep/75 to-navy-deep/30 md:bg-gradient-to-r md:from-navy-deep/90 md:via-navy-deep/60 md:to-transparent" aria-hidden="true"></div>
+
+    <div class="container">
+        <div class="flex flex-col justify-end md:justify-center min-h-[560px] lg:min-h-[640px] py-14 md:py-20 max-w-[620px]">
+            <h1 class="display">{{ .heading | default site.Title | markdownify }}</h1>
+            {{- with .text }}
+            <p class="mt-6 text-lg leading-[1.6] text-white/90 lg:text-xl max-w-[52ch]">{{ . | markdownify }}</p>
+            {{- end }}
+            {{- if or .button .secondary_button }}
+            <div class="mt-9 flex flex-wrap gap-4">
+                {{- with .button }}<a class="primary-btn" href="{{ $.button_url | relURL }}">{{ . | markdownify }}</a>{{ end }}
+                {{- with .secondary_button }}<a class="ghost-btn" href="{{ $.secondary_button_url | relURL }}">{{ . | markdownify }}</a>{{ end }}
+            </div>
+            {{- end }}
+        </div>
+    </div>
 </section>

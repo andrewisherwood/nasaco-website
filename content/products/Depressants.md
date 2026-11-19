@@ -2,6 +2,8 @@
 title: Depressants
 layout: product-single
 type: product
+weight: 3
+range: "NASMIN"
 slug: Depressants
 featured: true
 date: 2021-12-11T08:54:27.000+00:00
@@ -15,10 +17,9 @@ bannerImage: "/images/product-banner.png" # Banner image should be minimum 1920x
 page_sections:
 - template: download-pdf
   button_pdf: Download pdf
-  heading: Download pdf spesifications
+  heading: Download pdf specifications
   text: Enter your email address to download pdf
   button_download: Download 
-  button_download_url: '/images/Depressants.jpeg'
   button_cancel: Cancel
 ---
 ## Nasmin

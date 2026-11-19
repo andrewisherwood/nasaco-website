@@ -2,6 +2,8 @@
 title: Flocculants
 layout: product-single
 type: product
+weight: 5
+range: "NASFLOC"
 slug: Flocculants
 featured: true
 date: 2021-12-11T08:54:27.000+00:00
@@ -12,13 +14,17 @@ tags: []
 featureImage: "/images/Flocculants.png"
 bannerImage: "/images/product-banner.png" # Banner image should be minimum 1920x resulation
 
+datasheets:
+  - name: "Make-down equipment"
+    description: "Make-down units that dissolve NASFLOC powder flocculants and supply them to the application."
+    file: "/datasheets/nasfloc-make-down-equipment.pdf"
+
 page_sections:
 - template: download-pdf
   button_pdf: Download pdf
-  heading: Download pdf spesifications
+  heading: Download pdf specifications
   text: Enter your email address to download pdf
   button_download: Download 
-  button_download_url: '/images/Flocculants.png'
   button_cancel: Cancel
 ---
 ## Nasfloc
