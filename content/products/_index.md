@@ -4,7 +4,7 @@ layout: products-and-services-list
 
 page_sections:
 - template: hero-secondary
-  image: "/images/product-list-hero.png"
+  image: "/images/product-list-hero.jpg"
   image_description: ""
 - template: product-card
   heading: Products

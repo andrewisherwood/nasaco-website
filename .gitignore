@@ -7,3 +7,6 @@ public/
 # Legacy WordPress export: contains real user accounts, emails and
 # password hashes (wp_users) plus is 270MB+. Never commit this.
 WP-backup/
+
+# Raw source material (photos, PDFs, Word docs) for articles. Not site content.
+articles-dropbox/

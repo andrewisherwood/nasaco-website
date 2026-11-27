@@ -11,7 +11,7 @@ description: "Nasaco has a wide range of collectors for all types of flotation. 
 categories:
 - A
 tags: []
-featureImage: "/images/Collectors.png"
+featureImage: "/images/Collectors.jpg"
 bannerImage: "/images/product-banner.png" # Banner image should be minimum 1920x resulation
 
 datasheets:
